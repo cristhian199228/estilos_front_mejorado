@@ -91,7 +91,7 @@
                     <v-textarea label="Productos" v-model="productos_promocion" rows="3" row-height="5"
                       background-color="white" hide-details></v-textarea>
                     <v-btn-toggle dense color="#70142D" v-model="formato_productos_promocion" multiple>
-                      <v-btn v-for="(item, i) in botonesMultiple" :key="i" x-small>
+                      <v-btn v-for="(item, i) in botonesMultiple" :key="i" :value="item.value" x-small>
                         <v-icon :color="item.color" dense>
                           {{ item.icon }}
                         </v-icon>
@@ -162,24 +162,32 @@ export default {
       {
         icon: "mdi-format-bold",
         color: "black",
+        value: 'bold'
       },
       {
         icon: "mdi-format-italic",
         color: "black",
+        value: 'italic'
       },
       {
         icon: "mdi-format-text-variant",
         color: "red",
+        value: 'color'
       },
       {
         icon: "mdi-format-text",
         color: "blue",
+        value: 'font'
       },
     ],
   }),
   watch: {
     formato_productos_promocion(value) {
-      console.log(value)
+      const data = {
+        target: 'productos_promocion',
+        font_style: value.join(' ')
+      }
+      this.$store.commit('promocion/SET_FORMAT_TEXTO', data)
     }
   },
   methods: {

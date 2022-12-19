@@ -55,13 +55,12 @@ const mutations = {
     SET_USAR_TEXTO_ESTABLECIMIENTO(state, usar_texto) {
         state.usar_texto_establecimiento = usar_texto
     },
-    SET_BOLD_TEXTO(state, usar_texto) {
-        if (usar_texto == 'precio_promocion') state.precio_promocion.font_style = 'bold'
-        if (usar_texto == 'productos_promocion') state.productos_promocion.font_style = 'bold'
+    SET_FORMAT_TEXTO(state, data) {
+        console.log(data)
+        /* if (data.target == 'precio_promocion') state.precio_promocion.font_style = format */
+        if (data.target == 'productos_promocion') state.productos_promocion.font_style = data.font_style
     },
-    SET_ITALIC_TEXTO(state, usar_texto) {
-        state.usar_texto_establecimiento = usar_texto
-    }
+
 
 }
 
