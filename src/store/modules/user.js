@@ -8,9 +8,8 @@ const state = {
 
 const getters = {
     getUser: state => state.user,
-    getIdRubro: (getters) => {
-       return `${getters.getUser.establecimiento.idrubro}`
-    },
+    getIdRubro:  state => state.user.establecimiento.rubro_id,
+    getNombreComercial: state => state.user.establecimiento.nombre_comercial,
 }
 
 const actions = {
