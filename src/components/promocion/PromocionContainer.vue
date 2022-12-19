@@ -26,6 +26,7 @@
       </v-card>
       <DialogColor />
       <DialogFuente />
+      <DialogSubirLogo />
     </v-col>
   </div>
 </template>
@@ -33,13 +34,15 @@
 import EditorView from "./EditorView.vue";
 import DialogColor from "./DialogColor.vue";
 import DialogFuente from "./DialogFuente.vue";
+import DialogSubirLogo from "./DialogSubirLogo.vue";
 import BarraIzquierda from "./BarraIzquierda.vue";
 export default {
   components: {
     EditorView,
     BarraIzquierda,
     DialogColor,
-    DialogFuente
+    DialogFuente,
+    DialogSubirLogo
   },
   data: () => ({
   }),

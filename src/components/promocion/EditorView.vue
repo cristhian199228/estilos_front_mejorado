@@ -65,6 +65,7 @@ export default {
     texto_establecimiento_fill(value) {
       this.stage.findOne('#texto_establecimiento').fill(value)
     },
+    //TODO mejorar cambio de letra
     precio_promocion_font_family(value) {
       this.stage.findOne('#precio_promocion').fontFamily(value)
     },

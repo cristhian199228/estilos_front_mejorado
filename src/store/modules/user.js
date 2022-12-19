@@ -10,6 +10,7 @@ const getters = {
     getUser: state => state.user,
     getIdRubro:  state => state.user.establecimiento.rubro_id,
     getNombreComercial: state => state.user.establecimiento.nombre_comercial,
+    getRutaLogo: state => process.env.VUE_APP_API_URL + '/api/mostrarLogo/' + state.user.establecimiento.ruta_logo
 }
 
 const actions = {

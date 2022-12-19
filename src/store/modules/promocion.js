@@ -9,6 +9,7 @@ const state = {
     stage: null,
     dialog_color: false,
     dialog_font: false,
+    dialog_subir_logo: false,
     cf_elemento_seleccionado: null,
     precio_promocion: {
         text: 'S/xx.xx',
@@ -50,6 +51,16 @@ const actions = {
         const res = await axios.get("api/getPlantillas/")
         commit('SET_PLANTILLAS', res.data.data);
     },
+    async subirLogo({ state }, foto) {
+        const config = {
+            headers: { "content-type": "multipart/form-data" },
+        };
+        const formData = new FormData();
+        formData.append("file", foto['archivo']);
+        formData.append("establecimiento_id", foto['establecimiento_id']);
+        await axios.post("api/subirLogo", formData, config);
+        state.dialog_subir_logo = false
+    }
 }
 
 const mutations = {

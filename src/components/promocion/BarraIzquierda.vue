@@ -39,8 +39,9 @@
               <v-card-text>
                 <v-row>
                   <v-col cols="12">
-                    <v-text-field label="Escribe Aqui o añade tu logo" v-model="texto_establecimiento" :disabled="!usar_texto_establecimiento"
-                      hide-details color="black" background-color="white"></v-text-field>
+                    <v-text-field label="Escribe Aqui o añade tu logo" v-model="texto_establecimiento"
+                      :disabled="!usar_texto_establecimiento" hide-details color="black"
+                      background-color="white"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -74,7 +75,7 @@
                   </v-col>
                   <v-col cols="5">
                     <v-avatar size="80" tile>
-                      <v-img src="https://lexa.cl/wp-content/uploads/2018/11/logo.png" max-height="90"></v-img>
+                      <v-img :src="ruta_logo" contain max-height="90"></v-img>
                     </v-avatar>
                     <v-btn x-small dark @click="mostrardialogo()" color="#70142D" class="rounded-lg">
                       Subir logo
@@ -272,6 +273,9 @@ export default {
     restarPlantilla() {
       this.$store.commit('promocion/DISMINUIR_KEY_PLANTILLA_SELECCIONADA');
     },
+    mostrardialogo() {
+      this.$store.state.promocion.dialog_subir_logo = true;
+    },
     async cf_productos_promocion(value) {
 
       const data = {
@@ -315,13 +319,17 @@ export default {
       set(newValue) { this.$store.commit('promocion/SET_PRECIO_PROMOCION', newValue); }
     },
     texto_establecimiento: {
-      get() { return this.$store.getters['user/getNombreComercial']},
+      get() { return this.$store.getters['user/getNombreComercial'] },
       set(newValue) { this.$store.commit('promocion/SET_TEXTO_ESTABLECIMIENTO', newValue); }
     },
     usar_texto_establecimiento: {
       get() { return this.$store.state.promocion.usar_texto_establecimiento },
       set(newValue) { this.$store.commit('promocion/SET_USAR_TEXTO_ESTABLECIMIENTO', newValue); }
     },
+    ruta_logo() {
+      return this.$store.getters['user/getRutaLogo']
+    },
+
   },
   async created() {
     await this.$store.dispatch("promocion/getPlantillas");
