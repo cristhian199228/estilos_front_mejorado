@@ -49,7 +49,7 @@ const getters = {
 
 const actions = {
     async getPlantillas({ commit }) {
-        const res = await axios.get("api/getPlantillas/")
+        const res = await axios.get("api/getPlantillas")
         commit('SET_PLANTILLAS', res.data.data);
     },
     async subirLogo({ state, rootState }, foto) {

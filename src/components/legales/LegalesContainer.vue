@@ -58,7 +58,7 @@
                                 </v-row>
                             </v-card-text>
                             <v-card-actions>
-                                <v-btn link to="/plantilla" class="mx-8 rounded-lg" tile dark color="#70142D">
+                                <v-btn link to="/promocion" class="mx-8 rounded-lg" tile dark color="#70142D">
                                     Anterior
                                 </v-btn>
                                 <!--  <v-btn @click="guardarDatos()" class="mx-8 rounded-lg" color="#70142D"
