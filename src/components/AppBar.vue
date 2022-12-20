@@ -2,7 +2,6 @@
   <div>
     <v-app-bar color="white" elevation="0" app>
       <v-app-bar-nav-icon @click="drawerState = !drawerState" v-if="mostrar_nav_icon"></v-app-bar-nav-icon>
-      <!-- <v-app-bar-nav-icon @click="drawerState = !drawerState"></v-app-bar-nav-icon> -->
       <v-toolbar-title>
         <v-img max-height="30" class="ml-auto" contain src="/app/logo_estilos.svg"></v-img>
       </v-toolbar-title>
@@ -14,7 +13,6 @@
     </v-app-bar>
   </div>
 </template>
-
 <script>
 export default {
   name: 'AppBar',
@@ -27,7 +25,7 @@ export default {
       set(v) { return this.$store.commit('SHOW_NAVIGATION_DRAWER', v) }
     },
     mostrar_nav_icon() {
-      return this.$store.state.mostrar_nav_icon
+      return this.$store.state.datos_persistentes.mostrar_nav_icon
     },
     getUser() {
       if (this.$store.state.user.user) return this.$store.state.user.user.nombre

@@ -19,8 +19,6 @@ const actions = {
             const res = await axios.post('api/login', params)
             commit('SHOW_SUCCESS_SNACKBAR', await res.data.message, { root: true })
             commit('SET_USER', await res.data.usuario)
-            commit('SET_MOSTRAR_NAV_ICON', true, { root: true });
-            commit('SHOW_NAVIGATION_DRAWER', true, { root: true }); 
             commit('SET_BACKGROUND', 'logueado', { root: true })
             await router.push('/inicio');
         } catch (e) {

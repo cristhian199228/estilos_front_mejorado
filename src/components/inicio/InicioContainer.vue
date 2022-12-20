@@ -3,21 +3,11 @@
     <v-card class="mx-auto mt-12" outlined color="transparent" max-width="800">
       <v-row dense>
         <v-col cols="12" sm="12">
-        <v-card
-              height="100%"
-              class="card-outter"
-              outlined
-              color="transparent"
-          >
+          <v-card height="100%" class="card-outter" outlined color="transparent">
             <v-img src="/app/bannerinicio.svg" class="orange--text align-end">
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                    @click="validarIngreso()"
-                    color="#ED1C24"
-                    class="mb-15 mr-15 px-15"
-                    dark
-                >
+                <v-btn @click="validarIngreso()" color="#ED1C24" class="mb-15 mr-15 px-15" dark>
                   <strong> Ingresa Aqui</strong>
                 </v-btn>
               </v-card-actions>
@@ -27,11 +17,7 @@
         <template>
           <v-col cols="12" sm="4">
             <v-card to="/inicio" class="mx-6" color="transparent" outlined>
-              <v-img
-                  src="/app/bannerboton1.svg"
-                  to="/fotos"
-                  class="orange--text align-end"
-              >
+              <v-img src="/app/bannerboton1.svg" to="/fotos" class="orange--text align-end">
               </v-img>
             </v-card>
           </v-col>
@@ -49,10 +35,7 @@
           </v-col>
         </template>
       </v-row>
-      <v-dialog
-          v-model="dialog_terminos"
-          width="80vh"
-      >
+      <v-dialog v-model="dialog_terminos" width="80vh">
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
             Términos y condiciones
@@ -85,11 +68,7 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-                color="primary"
-                text
-                @click="dialog_terminos = false"
-            >
+            <v-btn color="primary" text @click="dialog_terminos = false">
               Cerrar
             </v-btn>
           </v-card-actions>
@@ -100,8 +79,6 @@
 </template>
 
 <script>
-import { mapMutations} from "vuex";
-
 export default {
   data() {
     return {
@@ -110,18 +87,15 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapMutations([
-      "SET_INICIO_VALIDADO",
-      "SET_MOSTRAR_NAV",
-      "SET_MOSTRAR_NAV_ICON",
-    ]),
+
     abrirModalTerminos() {
       this.dialog_terminos = 1;
     },
     validarIngreso() {
-      this.SET_INICIO_VALIDADO(1);
-      this.SET_MOSTRAR_NAV(1);
-      this.SET_MOSTRAR_NAV_ICON(1);
+      this.$store.commit('SHOW_NAVIGATION_DRAWER', true)
+      this.$store.commit('SET_MOSTRAR_NAV_ICON', true)
+      this.$store.commit('SET_INICIO_VALIDADO', true)
+      this.$store.commit('SET_FOTOS_VALIDADO', true)
       this.$router.push("/fotos");
     },
   },

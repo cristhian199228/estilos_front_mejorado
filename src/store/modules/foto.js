@@ -3,17 +3,13 @@ import router from "../../router";
 axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
 const state = {
-    foto_seleccionada: null,
-    ruta_foto: process.env.VUE_APP_API_URL + "/api/mostrarFoto/",
     fotos: null,
     id_rubro_foto: 0,
-    show_dialog_subir_foto: false
+    show_dialog_subir_foto: false,
+    ruta_foto: process.env.VUE_APP_API_URL + "/api/mostrarFoto/",
 }
 
 const getters = {
-    getRutaFoto: (state) => {
-        if (state.foto_seleccionada) return state.ruta_foto + state.foto_seleccionada.ruta
-    },
 }
 
 const actions = {
@@ -21,19 +17,18 @@ const actions = {
         const res = await axios.get("api/getFotoRubro/" + state.id_rubro_foto)
         commit('SET_FOTOS', res.data.data);
     },
-    async subirFotoParaModelar({ commit }, foto) {
+    async subirFotoParaModelar({rootState},foto) {
         const config = {
             headers: { "content-type": "multipart/form-data" },
         };
         const formData = new FormData();
         formData.append("file", foto);
-        formData.append("foto_id", state.foto_seleccionada.id);
+        formData.append("foto_id", rootState.datos_persistentes.foto_seleccionada.id);
         await axios.post("/api/subirFotoParaModelar", formData, config)
-        commit('SET_FOTOS_COMPLETADO', true, { root: true });
         router.push('/promocion');
         /* TODO mejorar respuesta */
     },
-    async subirNuevaFoto({ commit}, foto) {
+    async subirNuevaFoto({ commit }, foto) {
         const config = {
             headers: { "content-type": "multipart/form-data" },
         };
@@ -42,20 +37,15 @@ const actions = {
         formData.append("idrubro", foto['rubro_id']);
         await axios.post("api/subirNuevaFoto", formData, config);
         commit('SHOW_DIALOG_SUBIR_FOTO', false);
+    },
+    async establecerFoto({ commit }, foto) {
+        commit('SET_FOTO_SELECCIONADA', foto, { root: true });
     }
 }
 
 const mutations = {
-    SET_FOTO_SELECCIONADA(state, foto) {
-        state.foto_seleccionada = foto;
-        window.localStorage.setItem('foto_seleccionada', JSON.stringify(foto));
-    },
     SHOW_DIALOG_SUBIR_FOTO(state, dialog) {
         state.show_dialog_subir_foto = dialog;
-    },
-    SET_RUTA_FOTO(state, ruta_foto) {
-        state.ruta_foto = ruta_foto;
-        window.localStorage.setItem('ruta_foto', JSON.stringify(ruta_foto));
     },
     SET_FOTOS(state, fotos) {
         state.fotos = fotos;

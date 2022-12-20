@@ -5,9 +5,6 @@
         <div :id="idContainer">
         </div>
       </v-card-text>
-      <!-- <v-card-actions>
-        <v-btn @click="savejson()">hola</v-btn>
-      </v-card-actions> -->
     </v-card>
   </div>
 </template>
@@ -32,6 +29,10 @@ export default {
     window.addEventListener("resize", this.changeRect);
   },
   watch: {
+    stage(value) {
+      this.$store.state.promocion.stage = value
+    },
+
     productos_promocion_text(value) {
       this.stage.findOne('#productos_promocion').text(value)
     },
@@ -78,6 +79,35 @@ export default {
     texto_establecimiento_text(value) {
       this.stage.findOne('#texto_establecimiento').text(value)
     },
+    usar_texto_establecimiento(value) {
+      if (value == false) {
+        var logo_establecimiento = new Image();
+        let me = this
+        logo_establecimiento.onload = function () {
+          me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
+          me.stage.findOne('#logo_establecimiento').draggable(me.editable)
+        };
+        logo_establecimiento.src = this.ruta_logo;
+        me.stage.findOne('#texto_establecimiento').hide()
+        me.stage.findOne('#logo_establecimiento').show()
+      }
+      else {
+        this.stage.findOne('#texto_establecimiento').show()
+        this.stage.findOne('#logo_establecimiento').hide()
+      }
+    },
+    ruta_logo(value) {
+      if (value == "https://lexa.cl/wp-content/uploads/2018/11/logo.png") {
+        var logo_establecimiento = new Image();
+        let me = this
+        logo_establecimiento.onload = function () {
+          me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
+          me.stage.findOne('#logo_establecimiento').draggable(me.editable)
+        };
+        logo_establecimiento.src = value;
+        me.stage.findOne('#logo_establecimiento').show()
+      }
+    },
     json(nuevo) {
       this.dibujarCanvas(nuevo);
       this.changeRect();
@@ -88,7 +118,7 @@ export default {
   },
   computed: {
     ruta_foto() {
-      return this.$store.getters['foto/getRutaFoto']
+      return this.$store.getters['getRutaFoto']
     },
     productos_promocion_text() {
       return this.$store.state.promocion.productos_promocion.text
@@ -135,6 +165,13 @@ export default {
     texto_establecimiento_text() {
       return this.$store.state.promocion.texto_establecimiento.text
     },
+    usar_texto_establecimiento() {
+      return this.$store.state.promocion.usar_texto_establecimiento
+    },
+    ruta_logo() {
+      if (this.$store.state.user.user.establecimiento.ruta_logo) return this.$store.getters['user/getRutaLogo']
+      return "https://lexa.cl/wp-content/uploads/2018/11/logo.png"
+    },
     json() {
       return this.$store.getters['promocion/getPlantillaSeleccionada']
     },
@@ -161,15 +198,15 @@ export default {
       this.stage.height(this.height);
     },
     async dibujarCanvas(json) {
-      this.stage = Konva.Node.create(JSON.parse(json.json), this.idContainer);
       let me = this;
+      if (me.$store.state.datos_persistentes.stage_json) { me.stage = Konva.Node.create(JSON.parse(me.$store.state.datos_persistentes.stage_json), me.idContainer); }
+      else { me.stage = Konva.Node.create(JSON.parse(json.json), this.idContainer); }
 
       var backgound = new Image();
       backgound.onload = function () {
         me.stage.findOne('#background').image(backgound);
       };
-      backgound.src = this.ruta_foto;
-      backgound.src = "http://10.50.1.2:8000/api/mostrarFoto/aa8e18837ab9d02cb082027c495178dc.jpg";
+      backgound.src = me.ruta_foto;
 
       var logo_estilos = new Image();
       logo_estilos.onload = function () {

@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import InicioContainer from '../components/inicio/InicioContainer'
 import FotoContainer from '../components/fotos/FotoContainer'
 import PromocionContainer from '../components/promocion/PromocionContainer'
+import LegalesContainer from '../components/legales/LegalesContainer'
+import EnviarContainer from '../components/enviar/EnviarContainer'
+import EnvioSatisfactorioContainer from '../components/envio_satisfactorio/EnvioSatisfactorioContainer'
 /* import store from "../store"; */
 
 Vue.use(VueRouter)
@@ -29,7 +32,19 @@ const routes = [
   {
     path: '/promocion',
     component: PromocionContainer
-  }
+  },
+  {
+    path: '/legales',
+    component: LegalesContainer
+  },
+  {
+    path: '/enviar',
+    component: EnviarContainer
+  },
+  {
+    path: '/envio_satisfactorio',
+    component: EnvioSatisfactorioContainer
+  },
 ]
 
 const router = new VueRouter({

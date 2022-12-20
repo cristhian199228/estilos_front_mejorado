@@ -22,7 +22,6 @@
     </v-card>
   </div>
 </template>
-
 <script>
 export default {
 
@@ -30,7 +29,7 @@ export default {
   }),
   methods: {
     SetFoto(foto) {
-      this.$store.commit('foto/SET_FOTO_SELECCIONADA', foto)
+      this.$store.dispatch('foto/establecerFoto', foto)
       this.$store.dispatch('foto/getFotos')
     },
     seleccionarRubro(rubro) {

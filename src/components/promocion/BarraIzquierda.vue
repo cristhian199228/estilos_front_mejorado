@@ -77,8 +77,12 @@
                     <v-avatar size="80" tile>
                       <v-img :src="ruta_logo" contain max-height="90"></v-img>
                     </v-avatar>
-                    <v-btn x-small dark @click="mostrardialogo()" color="#70142D" class="rounded-lg">
-                      Subir logo
+                    <v-btn v-if="ruta_logo == 'https://lexa.cl/wp-content/uploads/2018/11/logo.png'" x-small dark
+                      @click="mostrardialogo()" color="#70142D" class="rounded-lg">
+                      Subir Logo
+                    </v-btn>
+                    <v-btn v-else x-small dark @click="eliminarLogo()" color="#70142D" class="rounded-lg">
+                      Eliminar Logo
                     </v-btn>
                   </v-col>
                 </v-row>
@@ -301,6 +305,10 @@ export default {
       }
       await this.$store.commit('promocion/SHOW_DIALOG_COLOR_FUENTE', data)
       this.valor_cf_precio_promocion = []
+    },
+    eliminarLogo() {
+      const res = confirm("Desea Eliminar el logo");
+      if (res) this.$store.state.user.user.establecimiento.ruta_logo = null
     }
   },
   computed: {
@@ -327,12 +335,12 @@ export default {
       set(newValue) { this.$store.commit('promocion/SET_USAR_TEXTO_ESTABLECIMIENTO', newValue); }
     },
     ruta_logo() {
-      return this.$store.getters['user/getRutaLogo']
+      if (this.$store.state.user.user.establecimiento.ruta_logo) return this.$store.getters['user/getRutaLogo']
+      return "https://lexa.cl/wp-content/uploads/2018/11/logo.png"
     },
 
   },
-  async created() {
-    await this.$store.dispatch("promocion/getPlantillas");
+  created() {
   },
   mounted() {
   },

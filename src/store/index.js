@@ -11,30 +11,53 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         fondoprincipal: "landing-page",
-        drawer: false,
         snackbar: {
             message: null,
             color: null,
             show: false,
         },
-        mostrar_nav_icon: false,
-        rubros:[],
-        inicio_completado:false,
-        fotos_completado:false
+        rubros: [],
+        ruta_foto: process.env.VUE_APP_API_URL + "/api/mostrarFoto/",
+        datos_persistentes: {
+            inicio: false,
+            fotos: false,
+            plantilla: false,
+            legales: false,
+            enviar: false,
+            mostrar_nav_icon: false,
+            drawer: false,
+            foto_seleccionada: {},
+            stage_json: null,
+            usar_texto_establecimiento: false,
+            legales_valores: {
+                direccion: '',
+                celular: '',
+                horario: '',
+                vigencia: '',
+                restricciones: '',
+                representante_legal: '',
+                confirmacion_veracidad: '',
+                acepta_terminos: ''
+            }
+        },
     },
     getters: {
-        drawerState: (state) => state.drawer
+        drawerState: (state) => state.datos_persistentes.drawer,
+        getRutaFoto: (state) => {
+            if (state.datos_persistentes.foto_seleccionada) return state.ruta_foto + state.datos_persistentes.foto_seleccionada.ruta
+        },
     },
     mutations: {
-
         SET_BACKGROUND(state, background) {
             state.fondoprincipal = background
         },
         SHOW_NAVIGATION_DRAWER(state, navigation) {
-            state.drawer = navigation
+            state.datos_persistentes.drawer = navigation
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
         },
-        SET_MOSTRAR_NAV_ICON(state, valor) {
-            state.mostrar_nav_icon = valor
+        SET_MOSTRAR_NAV_ICON(state, value) {
+            state.datos_persistentes.mostrar_nav_icon = value
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
         },
         SHOW_SUCCESS_SNACKBAR(state, message) {
             state.snackbar.color = 'success'
@@ -49,11 +72,69 @@ export default new Vuex.Store({
         SET_RUBROS(state, rubros) {
             state.rubros = rubros;
         },
-        SET_INICIO_COMPLETADO(state,valor) {
-            state.inicio_completado = valor;
+        SET_INICIO_VALIDADO(state, valor) {
+            state.datos_persistentes.inicio = valor;
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
         },
-        SET_FOTOS_COMPLETADO(state,valor) {
-            state.fotos_completado = valor;
+        SET_FOTOS_VALIDADO(state, valor) {
+            state.datos_persistentes.fotos = valor;
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_PLANTILLA_VALIDADO(state, valor) {
+            state.datos_persistentes.plantilla = valor;
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_LEGALES_VALIDADO(state, valor) {
+            state.datos_persistentes.legales = valor;
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_ENVIAR_VALIDADO(state, valor) {
+            state.datos_persistentes.enviar = valor;
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_FOTO_SELECCIONADA(state, valor) {
+            state.datos_persistentes.foto_seleccionada = valor
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_STAGE_JSON(state, json) {
+            state.datos_persistentes.stage_json = json
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_CELULAR_LEGALES(state, legales) {
+            state.datos_persistentes.legales_valores.celular = legales
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_RESTRICCIONES_LEGALES(state, legales) {
+            state.datos_persistentes.legales_valores.restricciones = legales
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_DIRECCION_LEGALES(state, legales) {
+            state.datos_persistentes.legales_valores.direccion = legales
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_VIGENCIA_LEGALES(state, legales) {
+            state.datos_persistentes.legales_valores.vigencia = legales
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_HORARIO_LEGALES(state, legales) {
+            state.datos_persistentes.legales_valores.horario = legales
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_REPRESENTANTE_LEGAL_LEGALES(state, representante) {
+            state.datos_persistentes.legales_valores.representante_legal = representante
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_CONFIRMACION_VERACIDAD_LEGALES(state, confirmacion) {
+            state.datos_persistentes.legales_valores.confirmacion_veracidad = confirmacion
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_ACEPTA_TERMINOS_LEGALES(state, acepta) {
+            state.datos_persistentes.legales_valores.acepta_terminos = acepta
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_DATOS_PERSISTENTES(state, datos) {
+            state.datos_persistentes = datos
+            window.localStorage.setItem('datos_persistentes', JSON.stringify(state.datos_persistentes));
         }
     },
     actions: {

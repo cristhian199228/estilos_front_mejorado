@@ -44,6 +44,7 @@ export default {
     async validarFoto() {
       const result = await this.$refs.cropper.getResult();
       this.$store.dispatch('foto/subirFotoParaModelar', result.canvas.toDataURL("image/jpeg", 1.0))
+      this.$store.commit('SET_PLANTILLA_VALIDADO', true)
     },
     mostrarDialogSubirFoto() {
       this.$store.commit('foto/SHOW_DIALOG_SUBIR_FOTO',true)
@@ -53,7 +54,7 @@ export default {
   },
   computed: {
     getRutaFoto() {
-      return this.$store.getters['foto/getRutaFoto']
+      return this.$store.getters['getRutaFoto']
     }
   },
 };

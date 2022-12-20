@@ -47,8 +47,13 @@ export default {
   data: () => ({
   }),
   methods: {
+    guardaryContinuar(){
+      this.$store.dispatch('promocion/guardarStageCanvas')
+      this.$store.commit('SET_LEGALES_VALIDADO',true)
+    }
   },
   created() {
+     this.$store.dispatch("promocion/getPlantillas");
   },
   mounted() {
   },

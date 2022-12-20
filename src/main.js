@@ -10,9 +10,11 @@ Vue.config.productionTip = false
 if (window.localStorage.getItem("user") != null) {
   const user = JSON.parse(window.localStorage.getItem("user"));
   store.commit("user/SET_USER", user);
-  store.commit("SHOW_NAVIGATION_DRAWER", true);
-  store.commit("SET_MOSTRAR_NAV_ICON", true);
   store.commit("SET_BACKGROUND", "logueado");
+}
+if (window.localStorage.getItem("datos_persistentes") != null) {
+  const datos = JSON.parse(window.localStorage.getItem("datos_persistentes"));
+  store.commit("SET_DATOS_PERSISTENTES", datos);
 }
 
 new Vue({

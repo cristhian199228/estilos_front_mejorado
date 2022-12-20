@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from "../../router";
 axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
 const state = {
@@ -31,7 +32,7 @@ const state = {
         align: '',
         fill: 'black',
         font_family: ''
-    }
+    },
 }
 
 const getters = {
@@ -51,15 +52,63 @@ const actions = {
         const res = await axios.get("api/getPlantillas/")
         commit('SET_PLANTILLAS', res.data.data);
     },
-    async subirLogo({ state }, foto) {
+    async subirLogo({ state, rootState }, foto) {
         const config = {
             headers: { "content-type": "multipart/form-data" },
         };
         const formData = new FormData();
         formData.append("file", foto['archivo']);
         formData.append("establecimiento_id", foto['establecimiento_id']);
-        await axios.post("api/subirLogo", formData, config);
+        const res = await axios.post("api/subirLogo", formData, config);
         state.dialog_subir_logo = false
+        rootState.user.user.establecimiento.ruta_logo = res.data.data.ruta_logo
+    },
+    async guardarStageCanvas({ commit, state }) {
+        const json = await state.stage.toJSON();
+        commit('SET_STAGE_JSON', json, { root: true });
+        router.push('/legales');
+    },
+    async guardarPromocion({ rootState, rootGetters }) {
+        const promocion = {
+            foto_id: rootState.datos_persistentes.foto_seleccionada.id,
+            plantilla_id: rootGetters['promocion/getIdPlantillaSeleccionada'],
+            direccion: rootState.datos_persistentes.legales_valores.direccion,
+            celular: rootState.datos_persistentes.legales_valores.celular,
+            horario: rootState.datos_persistentes.legales_valores.horario,
+            vigencia: rootState.datos_persistentes.legales_valores.vigencia,
+            restricciones: rootState.datos_persistentes.legales_valores.restricciones,
+            acepta: rootState.datos_persistentes.legales_valores.acepta_terminos,
+            json: rootState.datos_persistentes.stage_json,
+        }
+        await axios.post("api/guardarPromocion", promocion);
+        router.push('/envio_satisfactorio');
+    },
+    async terminarPromocion({commit }) {
+       
+        const datos = {
+            inicio: false,
+            fotos: false,
+            plantilla: false,
+            legales: false,
+            enviar: false,
+            mostrar_nav_icon: false,
+            drawer: false,
+            foto_seleccionada: {},
+            stage_json: null,
+            usar_texto_establecimiento: false,
+            legales_valores: {
+                direccion: '',
+                celular: '',
+                horario: '',
+                vigencia: '',
+                restricciones: '',
+                representante_legal: '',
+                confirmacion_veracidad: '',
+                acepta_terminos: ''
+            }
+        }
+        commit('SET_DATOS_PERSISTENTES', datos, { root: true })
+        router.push('/inicio');
     }
 }
 
@@ -72,6 +121,9 @@ const mutations = {
     },
     DISMINUIR_KEY_PLANTILLA_SELECCIONADA(state) {
         if (state.key_plantilla_seleccionada > 0) state.key_plantilla_seleccionada -= 1
+    },
+    SET_STAGE(state, stage) {
+        state.stage = stage
     },
     SET_PRECIO_PROMOCION(state, precio) {
         state.precio_promocion.text = precio

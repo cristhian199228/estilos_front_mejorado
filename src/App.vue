@@ -27,13 +27,15 @@ export default {
   },
   methods: {
   },
-  computed:{
+  computed: {
     fondoprincipal() {
       return this.$store.state.fondoprincipal
     },
-    snackbar(){
+    snackbar() {
       return this.$store.state.snackbar
     }
+  },
+  created() {
   },
 };
 </script>
@@ -107,6 +109,7 @@ export default {
       rgba(214, 61, 26, 1) 100%);
   height: 100%;
 }
+
 #logueado {
   background: white;
   height: 100%;
