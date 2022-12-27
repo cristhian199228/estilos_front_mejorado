@@ -191,11 +191,11 @@ export default {
       if (!container) {
         return;
       }
-      const width = container.clientWidth - 32;
-      const scale = width / 500;
+      var containerWidth = container.offsetWidth;
+      var scale = (containerWidth - 30) / 500;
+      this.stage.width(500 * scale);
+      this.stage.height(500 * scale);
       this.stage.scale({ x: scale, y: scale });
-      this.stage.width(this.width);
-      this.stage.height(this.height);
     },
     async dibujarCanvas(json) {
       let me = this;

@@ -4,8 +4,10 @@ axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
 const state = {
     plantillas: [],
+    promocion: [],
+    promocion_seleccionada: null,
+    ruta_foto: process.env.VUE_APP_API_URL + "/api/mostrarFoto/",
     key_plantilla_seleccionada: 0,
-    promocion: {},
     usar_texto_establecimiento: true,
     stage: null,
     dialog_color: false,
@@ -33,6 +35,9 @@ const state = {
         fill: 'black',
         font_family: ''
     },
+    res: 1,
+    formato: 'PNG',
+    descarga: 0,
 }
 
 const getters = {
@@ -44,13 +49,24 @@ const getters = {
     },
     getIdPlantillaSeleccionada: (state, getters) => {
         if (state.plantillas.length > 0) return getters.getPlantillaSeleccionada.id
-    }
+    },
+    getRutaFotoSeleccionada: (state) => {
+        return state.ruta_foto + state.promocion_seleccionada.foto.ruta
+    },
 }
 
 const actions = {
     async getPlantillas({ commit }) {
         const res = await axios.get("api/getPlantillas")
         commit('SET_PLANTILLAS', res.data.data);
+    },
+    async getPromociones({ commit }, data) {
+        const res = await axios.get("api/getPromociones/" + data.inicio + '/' + data.final)
+        commit('SET_PROMOCION', res.data.data);
+    },
+    async getPromocionSeleccionada({ commit }, id) {
+        const res = await axios.get("api/getPromocion/" + id)
+        commit('SET_PROMOCION_SELECCIONADA', res.data.data);
     },
     async subirLogo({ state, rootState }, foto) {
         const config = {
@@ -83,8 +99,8 @@ const actions = {
         await axios.post("api/guardarPromocion", promocion);
         router.push('/envio_satisfactorio');
     },
-    async terminarPromocion({commit }) {
-       
+    async terminarPromocion({ commit }) {
+
         const datos = {
             inicio: false,
             fotos: false,
@@ -109,12 +125,18 @@ const actions = {
         }
         commit('SET_DATOS_PERSISTENTES', datos, { root: true })
         router.push('/inicio');
-    }
+    },
+    async exportarPromocion({ state }) {
+        state.descarga += 1
+    },
 }
 
 const mutations = {
     SET_PLANTILLAS(state, plantillas) {
         state.plantillas = plantillas;
+    },
+    SET_PROMOCION(state, promocion) {
+        state.promocion = promocion
     },
     AUMENTAR_KEY_PLANTILLA_SELECCIONADA(state) {
         if (state.key_plantilla_seleccionada < state.plantillas.length - 1) state.key_plantilla_seleccionada += 1
@@ -127,6 +149,9 @@ const mutations = {
     },
     SET_PRECIO_PROMOCION(state, precio) {
         state.precio_promocion.text = precio
+    },
+    SET_PROMOCION_SELECCIONADA(state, promocion) {
+        state.promocion_seleccionada = promocion
     },
     SET_PRODUCTOS_PROMOCION(state, productos) {
         state.productos_promocion.text = productos

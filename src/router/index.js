@@ -6,6 +6,10 @@ import PromocionContainer from '../components/promocion/PromocionContainer'
 import LegalesContainer from '../components/legales/LegalesContainer'
 import EnviarContainer from '../components/enviar/EnviarContainer'
 import EnvioSatisfactorioContainer from '../components/envio_satisfactorio/EnvioSatisfactorioContainer'
+import RevisionContainer from '../components/revision/RevisionContainer'
+import TablaComponent from '../components/revision/TablaComponent'
+import DescargaEdicionContainer from '../components/revision/descarga/DescargaEdicionContainer'
+import VistaPreviaContainer from '../components/revision/vistaprevia/DescargaEdicionContainer'
 /* import store from "../store"; */
 
 Vue.use(VueRouter)
@@ -44,6 +48,33 @@ const routes = [
   {
     path: '/envio_satisfactorio',
     component: EnvioSatisfactorioContainer
+  },
+  {
+    path: '/revision',
+    component: RevisionContainer,
+    children: [
+      {
+        path: '',
+        name: 'Tabla',
+        component: TablaComponent
+      },
+      /* {
+        path: 'promocion/:promocion_id',
+        name: 'Promocion',
+        component: RevisionEdicionContainer
+      }, */
+      {
+        path: 'promocion/:promocion_id',
+        name: 'Promocion',
+        component: VistaPreviaContainer
+      },
+      {
+        path: 'descargapromocion/:promocion_id',
+        name: 'DescargaPromocion',
+        component: DescargaEdicionContainer
+      },
+    ],
+
   },
 ]
 

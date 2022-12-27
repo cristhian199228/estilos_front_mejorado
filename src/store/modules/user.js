@@ -25,13 +25,47 @@ const actions = {
             commit('SHOW_ERROR_SNACKBAR', await e.response.data.message, { root: true })
         }
     },
+    async logout({ commit }) {
+        await commit('LOGOUT_USER');
+        commit('SET_BACKGROUND', 'landing-page', { root: true })
+        commit('SET_NAVIGATION_DRAWER', false, { root: true })
+        commit('SET_MOSTRAR_NAV_ICON', false, { root: true })
+        const datos = {
+            inicio: false,
+            fotos: false,
+            plantilla: false,
+            legales: false,
+            enviar: false,
+            mostrar_nav_icon: false,
+            drawer: false,
+            foto_seleccionada: {},
+            stage_json: null,
+            usar_texto_establecimiento: false,
+            legales_valores: {
+                direccion: '',
+                celular: '',
+                horario: '',
+                vigencia: '',
+                restricciones: '',
+                representante_legal: '',
+                confirmacion_veracidad: '',
+                acepta_terminos: ''
+            }
+        }
+        commit('SET_DATOS_PERSISTENTES', datos, { root: true })
+        router.push('/login');
+    }
 }
 
 const mutations = {
     SET_USER(state, user) {
         state.user = user
         window.localStorage.setItem('user', JSON.stringify(user));
-    }
+    },
+    LOGOUT_USER(state) {
+        state.user = null;
+        window.localStorage.removeItem('user');
+    },
 }
 
 export default {

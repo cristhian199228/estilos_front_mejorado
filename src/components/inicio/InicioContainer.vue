@@ -22,7 +22,7 @@
             </v-card>
           </v-col>
           <v-col cols="12" sm="4">
-            <v-card to="/estado_solicitudes" class="mx-6" color="transparent" outlined>
+            <v-card to="/revision" class="mx-6" color="transparent" outlined>
               <v-img src="/app/bannerboton2.svg" class="orange--text align-end">
               </v-img>
             </v-card>
