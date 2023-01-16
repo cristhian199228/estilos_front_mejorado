@@ -17,7 +17,7 @@ const actions = {
         const res = await axios.get("api/getFotoRubro/" + state.id_rubro_foto)
         commit('SET_FOTOS', res.data.data);
     },
-    async subirFotoParaModelar({rootState},foto) {
+    async subirFotoParaModelar({ rootState, commit }, foto) {
         const config = {
             headers: { "content-type": "multipart/form-data" },
         };
@@ -25,6 +25,12 @@ const actions = {
         formData.append("file", foto);
         formData.append("foto_id", rootState.datos_persistentes.foto_seleccionada.id);
         await axios.post("/api/subirFotoParaModelar", formData, config)
+            .then(async function (response) {
+                commit('SET_FOTO_SELECCIONADA', response.data.data, { root: true });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         router.push('/promocion');
         /* TODO mejorar respuesta */
     },

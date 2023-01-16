@@ -200,7 +200,7 @@ export default {
     async dibujarCanvas(json) {
       let me = this;
       if (me.$store.state.datos_persistentes.stage_json) { me.stage = Konva.Node.create(JSON.parse(me.$store.state.datos_persistentes.stage_json), me.idContainer); }
-      else { me.stage = Konva.Node.create(JSON.parse(json.json), this.idContainer); }
+      else { me.stage = Konva.Node.create(JSON.parse(json.json), me.idContainer); }
 
       var backgound = new Image();
       backgound.onload = function () {
@@ -222,6 +222,18 @@ export default {
       };
       logo_tarjeta_estilos.src = '/app/logo_tarjeta_exclusivo.svg';
 
+      if (!me.usar_texto_establecimiento) {
+        var logo_establecimiento = new Image();
+        logo_establecimiento.onload = function () {
+          me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
+          me.stage.findOne('#logo_establecimiento').draggable(me.editable)
+        };
+        logo_establecimiento.src = me.ruta_logo;
+        me.stage.findOne('#logo_establecimiento').show()
+      }
+
+
+
       me.stage.findOne('#rectangulo_logo_promocion').draggable(me.editable)
       me.stage.findOne('#rectangulo_promocion').draggable(me.editable)
       me.stage.findOne('#productos_promocion').draggable(me.editable)
@@ -229,7 +241,10 @@ export default {
 
       me.stage.findOne('#productos_promocion').text(me.productos_promocion_text)
       me.stage.findOne('#precio_promocion').text(me.precio_promocion_text)
+
+      me.stage.findOne('#texto_establecimiento').show()
       me.stage.findOne('#texto_establecimiento').text(me.$store.getters['user/getNombreComercial'])
+      me.stage.findOne('#texto_establecimiento').draggable(me.editable)
 
       if (this.editable == true) {
         var tr = me.stage.findOne('#transformer');
