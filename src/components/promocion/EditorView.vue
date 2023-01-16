@@ -231,8 +231,11 @@ export default {
         logo_establecimiento.src = me.ruta_logo;
         me.stage.findOne('#logo_establecimiento').show()
       }
-
-
+      else {
+        me.stage.findOne('#texto_establecimiento').show()
+        me.stage.findOne('#texto_establecimiento').text(me.$store.getters['user/getNombreComercial'])
+        me.stage.findOne('#texto_establecimiento').draggable(me.editable)
+      }
 
       me.stage.findOne('#rectangulo_logo_promocion').draggable(me.editable)
       me.stage.findOne('#rectangulo_promocion').draggable(me.editable)
@@ -242,9 +245,7 @@ export default {
       me.stage.findOne('#productos_promocion').text(me.productos_promocion_text)
       me.stage.findOne('#precio_promocion').text(me.precio_promocion_text)
 
-      me.stage.findOne('#texto_establecimiento').show()
-      me.stage.findOne('#texto_establecimiento').text(me.$store.getters['user/getNombreComercial'])
-      me.stage.findOne('#texto_establecimiento').draggable(me.editable)
+
 
       if (this.editable == true) {
         var tr = me.stage.findOne('#transformer');

@@ -14,11 +14,11 @@
 
                                         <v-card-text class="text-h5 font-weight-bold">
                                             <p>Yo</p>
-                                            <v-text-field dense v-model="representante_legal"
+                                            <v-text-field dense v-model="representante_legal" @keyup="validar()"
                                                 label="NOMBRE DEL REPRESENTANTE DEL ESTABLECIMIENTO AFILIADO">
                                             </v-text-field>
                                             representante de {{ razon_social }}. con RUC: {{
-                                                    ruc
+                                                ruc
                                             }}.
                                             Declaro que la información proporcionada para la
                                             elaboración de la presente promoción es correcta, y que
@@ -28,19 +28,21 @@
                                             finalidad de hacer más efectiva la comunicación.
                                         </v-card-text>
                                         <v-row>
-                                            <v-checkbox v-model="confirmacion_veracidad"
+                                            <v-checkbox v-model="confirmacion_veracidad" @click="validar()"
                                                 label=" Confirmo la veracidad de la informacion" type="checkbox"
                                                 class="mx-8"></v-checkbox>
                                         </v-row>
                                         <v-row>
-                                            <v-checkbox v-model="acepta_terminos" label="Acepto Terminos y Condiciones"
-                                                type="checkbox" class="mx-8 mb-6"></v-checkbox>
+                                            <v-checkbox v-model="acepta_terminos" @click="validar()"
+                                                label="Acepto Terminos y Condiciones" type="checkbox"
+                                                class="mx-8 mb-6"></v-checkbox>
                                         </v-row>
                                         <v-card-actions>
                                             <v-btn link to="/legales" class="mx-8 rounded-lg" tile dark color="#70142D">
                                                 Anterior
                                             </v-btn>
-                                            <v-btn @click="guardarDatos()" dark class="mx-8 rounded-lg" color="#70142D">
+                                            <v-btn @click="guardarDatos()" :dark="valid" :disabled="!valid"
+                                                class="mx-8 rounded-lg" color="#70142D">
                                                 Enviar
                                             </v-btn>
                                         </v-card-actions>
@@ -70,10 +72,15 @@ export default {
         EditorView,
     },
     data: () => ({
+        valid: false
     }),
     methods: {
         guardarDatos() {
             this.$store.dispatch('promocion/guardarPromocion')
+        },
+        validar() {
+            if (this.representante_legal.length > 0 && this.confirmacion_veracidad == true && this.acepta_terminos == true) this.valid = true
+            else this.valid = false
         }
     },
     created() {

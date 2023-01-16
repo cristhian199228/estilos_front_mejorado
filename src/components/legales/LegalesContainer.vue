@@ -13,7 +13,7 @@
                                     </v-col>
                                     <v-col cols="8">
                                         <v-text-field label="Ejemplo Av. Lima 505 cercado" single-line
-                                            v-model="direccion"></v-text-field>
+                                            v-model="direccion" @keyup="validar()"></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -22,7 +22,7 @@
                                     </v-col>
                                     <v-col cols="8">
                                         <v-text-field label="Ejemplo : 9949748897-054200000" single-line
-                                            v-model="celular"></v-text-field>
+                                            v-model="celular" @keyup="validar()"></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -32,7 +32,7 @@
                                     <v-col cols="8">
 
                                         <v-text-field label="Ejemplo:Lunes a Sabado de 10:00 am a 16:00 pm" single-line
-                                            v-model="horario"></v-text-field>
+                                            v-model="horario" @keyup="validar()"></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -42,7 +42,7 @@
                                     <v-col cols="8">
 
                                         <v-text-field label="Ejemplo: Del 19 de julio al 31 de agosto de 2021"
-                                            single-line v-model="vigencia"></v-text-field>
+                                            single-line v-model="vigencia" @keyup="validar()"></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -53,7 +53,7 @@
 
                                         <v-text-field
                                             label="Ejemplo: No acumulable con otras promociones solo por Delivery"
-                                            single-line v-model="restricciones"></v-text-field>
+                                            single-line v-model="restricciones" @keyup="validar()"></v-text-field>
                                     </v-col>
                                 </v-row>
                             </v-card-text>
@@ -61,11 +61,8 @@
                                 <v-btn link to="/promocion" class="mx-8 rounded-lg" tile dark color="#70142D">
                                     Anterior
                                 </v-btn>
-                                <!--  <v-btn @click="guardarDatos()" class="mx-8 rounded-lg" color="#70142D"
-                                            :dark="!invalid" >
-                                            Siguiente
-                                        </v-btn> -->
-                                <v-btn @click="guardarDatos()" class="mx-8 rounded-lg" dark color="#70142D">
+                                <v-btn @click="guardarDatos()" :dark="valid" :disabled="!valid" class="mx-8 rounded-lg"
+                                    color="#70142D">
                                     Siguiente
                                 </v-btn>
                             </v-card-actions>
@@ -91,13 +88,18 @@ export default {
         EditorView,
     },
     data: () => ({
-
+        valid: false
     }),
     methods: {
         guardarDatos() {
             this.$store.commit('SET_ENVIAR_VALIDADO', true)
             this.$router.push("enviar");
         },
+        validar() {
+            console.log('wow')
+            if (this.celular.length > 0 && this.restricciones.length > 0 && this.direccion.length > 0 && this.vigencia.length > 0 && this.horario.length > 0) this.valid = true
+            else this.valid = false
+        }
     },
     created() {
         this.$store.dispatch("promocion/getPlantillas");
@@ -124,5 +126,8 @@ export default {
             set(newValue) { this.$store.commit('SET_HORARIO_LEGALES', newValue); }
         },
     },
+    watch: {
+
+    }
 };
 </script>

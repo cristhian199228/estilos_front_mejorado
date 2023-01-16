@@ -29,7 +29,7 @@ export default new Vuex.Store({
             foto_seleccionada: {},
             stage_json: null,
             usar_texto_establecimiento: false,
-            legales_valores: {
+            /* legales_valores: {
                 direccion: '',
                 celular: '',
                 horario: '',
@@ -38,6 +38,8 @@ export default new Vuex.Store({
                 representante_legal: '',
                 confirmacion_veracidad: '',
                 acepta_terminos: ''
+            } */
+            legales_valores: {
             }
         },
     },
