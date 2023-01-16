@@ -331,8 +331,8 @@ export default {
       set(newValue) { this.$store.commit('promocion/SET_TEXTO_ESTABLECIMIENTO', newValue); }
     },
     usar_texto_establecimiento: {
-      get() { return this.$store.state.promocion.usar_texto_establecimiento },
-      set(newValue) { this.$store.commit('promocion/SET_USAR_TEXTO_ESTABLECIMIENTO', newValue); }
+      get() { return this.$store.state.datos_persistentes.usar_texto_establecimiento },
+      set(newValue) { this.$store.commit('SET_USAR_TEXTO_ESTABLECIMIENTO', newValue); }
     },
     ruta_logo() {
       if (this.$store.state.user.user.establecimiento.ruta_logo) return this.$store.getters['user/getRutaLogo']

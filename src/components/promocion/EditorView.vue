@@ -166,7 +166,7 @@ export default {
       return this.$store.state.promocion.texto_establecimiento.text
     },
     usar_texto_establecimiento() {
-      return this.$store.state.promocion.usar_texto_establecimiento
+      return this.$store.state.datos_persistentes.usar_texto_establecimiento
     },
     ruta_logo() {
       if (this.$store.state.user.user.establecimiento.ruta_logo) return this.$store.getters['user/getRutaLogo']

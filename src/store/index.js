@@ -28,18 +28,16 @@ export default new Vuex.Store({
             drawer: false,
             foto_seleccionada: {},
             stage_json: null,
-            usar_texto_establecimiento: false,
-            /* legales_valores: {
-                direccion: '',
-                celular: '',
-                horario: '',
-                vigencia: '',
-                restricciones: '',
-                representante_legal: '',
-                confirmacion_veracidad: '',
-                acepta_terminos: ''
-            } */
+            usar_texto_establecimiento: true,
             legales_valores: {
+                direccion: null,
+                celular: null,
+                horario: null,
+                vigencia: null,
+                restricciones: null,
+                representante_legal: null,
+                confirmacion_veracidad: false,
+                acepta_terminos: false
             }
         },
     },
@@ -100,6 +98,10 @@ export default new Vuex.Store({
         },
         SET_STAGE_JSON(state, json) {
             state.datos_persistentes.stage_json = json
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_USAR_TEXTO_ESTABLECIMIENTO(state, usar_texto_establecimiento) {
+            state.datos_persistentes.usar_texto_establecimiento = usar_texto_establecimiento
             this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
         },
         SET_CELULAR_LEGALES(state, legales) {

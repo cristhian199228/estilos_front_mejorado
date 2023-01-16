@@ -59,34 +59,24 @@
                 </template>
               </template>
               <template v-slot:[`item.vista_previa`]="{ item }">
-                <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon small v-bind="attrs" v-on="on" @click="abrirBitacora(item)">
-                      mdi-file-find
-                    </v-icon>
-                  </template>
-                  <span>Editar</span>
-                </v-tooltip>
+                <v-icon small v-bind="attrs" v-on="on" @click="abrirBitacora(item)">
+                  mdi-file-find
+                </v-icon>
               </template>
               <template v-slot:[`item.descargar`]="{ item }">
-                <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon small v-bind="attrs" v-on="on" class="mr-2" @click="abrirBitacoraDescarga(item)">
-                      mdi-download
-                    </v-icon>
-                  </template>
-                  <span>Descargar</span>
-                </v-tooltip>
+                <v-icon v-if="item.estado_solicitud == 2" small v-bind="attrs" v-on="on" class="mr-2"
+                  @click="abrirBitacoraDescarga(item)">
+                  mdi-download
+                </v-icon>
+                <v-icon v-else small v-bind="attrs" v-on="on" class="mr-2" disabled
+                  @click="abrirBitacoraDescarga(item)">
+                  mdi-download
+                </v-icon>
               </template>
               <template v-slot:[`item.legales`]="{ item }">
-                <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon small v-bind="attrs" v-on="on" class="mr-2" @click="descargarLegales(item)">
-                      mdi-scale-balance
-                    </v-icon>
-                  </template>
-                  <span>Legales</span>
-                </v-tooltip>
+                <v-icon small v-bind="attrs" v-on="on" class="mr-2" @click="descargarLegales(item)">
+                  mdi-scale-balance
+                </v-icon>
               </template>
             </v-data-table>
           </v-col>

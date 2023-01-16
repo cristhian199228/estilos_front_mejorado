@@ -88,6 +88,7 @@ const actions = {
         const promocion = {
             foto_id: rootState.datos_persistentes.foto_seleccionada.id,
             plantilla_id: rootGetters['promocion/getIdPlantillaSeleccionada'],
+            usar_texto_establecimiento: rootState.datos_persistentes.usar_texto_establecimiento,
             direccion: rootState.datos_persistentes.legales_valores.direccion,
             celular: rootState.datos_persistentes.legales_valores.celular,
             horario: rootState.datos_persistentes.legales_valores.horario,

@@ -96,9 +96,12 @@ export default {
             this.$router.push("enviar");
         },
         validar() {
-            console.log('wow')
-            if (this.celular.length > 0 && this.restricciones.length > 0 && this.direccion.length > 0 && this.vigencia.length > 0 && this.horario.length > 0) this.valid = true
-            else this.valid = false
+            if (this.celular != null && this.celular.length > 0 &&
+                this.restricciones != null && this.restricciones.length > 0 &&
+                this.direccion != null && this.direccion.length > 0 &&
+                this.vigencia != null && this.vigencia.length > 0 &&
+                this.horario != null && this.horario.length > 0) { this.valid = true }
+            else { this.valid = false }
         }
     },
     created() {

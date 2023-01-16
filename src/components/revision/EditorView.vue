@@ -104,6 +104,10 @@ export default {
     json_plantilla() {
       return this.$store.getters['promocion/getPlantillaSeleccionada']
     },
+    ruta_logo() {
+      if (this.$store.state.user.user.establecimiento.ruta_logo) return this.$store.getters['user/getRutaLogo']
+      return "https://lexa.cl/wp-content/uploads/2018/11/logo.png"
+    },
   },
   methods: {
     changeRect() {
@@ -148,6 +152,21 @@ export default {
         me.stage.findOne('#logo_tarjeta_estilos').draggable(me.editable)
       };
       logo_tarjeta_estilos.src = '/app/logo_tarjeta_exclusivo.svg';
+
+      if (json.usar_texto_establecimiento == 0) {
+        var logo_establecimiento = new Image();
+        logo_establecimiento.onload = function () {
+          me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
+          me.stage.findOne('#logo_establecimiento').draggable(me.editable)
+        };
+        logo_establecimiento.src = me.ruta_logo;
+        me.stage.findOne('#logo_establecimiento').show()
+      }
+      else {
+        me.stage.findOne('#texto_establecimiento').show()
+        me.stage.findOne('#texto_establecimiento').text(me.$store.getters['user/getNombreComercial'])
+        me.stage.findOne('#texto_establecimiento').draggable(me.editable)
+      }
 
       me.objetos_editables.forEach(attr => me.stage.findOne('#' + attr).draggable(me.editable));
       me.objetos.forEach(attr => me.establecerAtributos(attr));
@@ -206,7 +225,7 @@ export default {
       }
     },
     async exportarPromocion() {
-      var dataURL = this.stage.toDataURL({ pixelRatio: this.$store.state.promocion.res+1 });
+      var dataURL = this.stage.toDataURL({ pixelRatio: this.$store.state.promocion.res + 1 });
       var link = document.createElement('a');
       link.download = 'prueba.' + this.$store.state.promocion.formato;
       link.href = dataURL;
