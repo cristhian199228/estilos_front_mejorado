@@ -46,7 +46,12 @@ export default {
       this.stage.findOne('#productos_promocion').fontStyle(value)
     },
     texto_establecimiento_font_style(value) {
-      this.stage.findOne('#texto_establecimiento').fontStyle(value)
+      var FontFaceObserver = require('fontfaceobserver');
+      var font = new FontFaceObserver(value);
+      let me = this;
+      font.load().then(function () {
+        me.stage.findOne('#texto_establecimiento').fontStyle(value)
+      });
     },
     productos_promocion_align(value) {
       this.stage.findOne('#productos_promocion').align(value)
@@ -68,10 +73,20 @@ export default {
     },
     //TODO mejorar cambio de letra
     precio_promocion_font_family(value) {
-      this.stage.findOne('#precio_promocion').fontFamily(value)
+      var FontFaceObserver = require('fontfaceobserver');
+      var font = new FontFaceObserver(value);
+      let me = this;
+      font.load().then(function () {
+        me.stage.findOne('#precio_promocion').fontFamily(value)
+      });
     },
     productos_promocion_font_family(value) {
-      this.stage.findOne('#productos_promocion').fontFamily(value)
+      var FontFaceObserver = require('fontfaceobserver');
+      var font = new FontFaceObserver(value);
+      let me = this;
+      font.load().then(function () {
+        me.stage.findOne('#productos_promocion').fontFamily(value)
+      });
     },
     texto_establecimiento_font_family(value) {
       this.stage.findOne('#texto_establecimiento').fontFamily(value)
@@ -198,6 +213,7 @@ export default {
       this.stage.scale({ x: scale, y: scale });
     },
     async dibujarCanvas(json) {
+
       let me = this;
       if (me.$store.state.datos_persistentes.stage_json) { me.stage = Konva.Node.create(JSON.parse(me.$store.state.datos_persistentes.stage_json), me.idContainer); }
       else { me.stage = Konva.Node.create(JSON.parse(json.json), me.idContainer); }
@@ -214,6 +230,8 @@ export default {
         me.stage.findOne('#logo_estilos').draggable(me.editable);
       };
       logo_estilos.src = '/app/logo_estilos.svg';
+
+
 
       var logo_tarjeta_estilos = new Image();
       logo_tarjeta_estilos.onload = function () {

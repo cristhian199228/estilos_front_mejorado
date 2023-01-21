@@ -161,11 +161,13 @@ export default {
         };
         logo_establecimiento.src = me.ruta_logo;
         me.stage.findOne('#logo_establecimiento').show()
+        me.stage.findOne('#texto_establecimiento').hide()
       }
       else {
         me.stage.findOne('#texto_establecimiento').show()
         me.stage.findOne('#texto_establecimiento').text(me.$store.getters['user/getNombreComercial'])
         me.stage.findOne('#texto_establecimiento').draggable(me.editable)
+        me.stage.findOne('#logo_establecimiento').hide()
       }
 
       me.objetos_editables.forEach(attr => me.stage.findOne('#' + attr).draggable(me.editable));

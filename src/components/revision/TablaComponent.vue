@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card outlined class="mx-12">
-      <v-card-title> Revisión de Promociones</v-card-title>
+      <v-card-title> Estado de Solicitudes</v-card-title>
       <v-card-text>
         <v-row>
           <v-spacer></v-spacer>
@@ -30,12 +30,14 @@
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
-          <v-col cols="12" sm="2">
+            <v-btn color="orange" class="ma-2 white--text" to="/inicio">
+              Atras
+          
+            </v-btn>
             <v-btn color="red" class="ma-2 white--text" @click="getPromociones()">
               Consultar
               <v-icon right dark> mdi-magnify</v-icon>
             </v-btn>
-          </v-col>
           <v-spacer></v-spacer>
         </v-row>
         <v-row>
