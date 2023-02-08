@@ -60,8 +60,12 @@ const actions = {
         const res = await axios.get("api/getPlantillas")
         commit('SET_PLANTILLAS', res.data.data);
     },
-    async getPromociones({ commit }, data) {
-        const res = await axios.get("api/getPromociones/" + data.inicio + '/' + data.final)
+    async getPromociones({ commit , rootState}, data) {
+        const res = await axios.get("api/getPromociones/" + data.inicio + '/' + data.final, {
+            headers: {
+                'Authorization': `Bearer ${rootState.user.user.token}`
+            }
+        });
         commit('SET_PROMOCION', res.data.data);
     },
     async getPromocionSeleccionada({ commit }, id) {
@@ -97,7 +101,11 @@ const actions = {
             acepta: rootState.datos_persistentes.legales_valores.acepta_terminos,
             json: rootState.datos_persistentes.stage_json,
         }
-        await axios.post("api/guardarPromocion", promocion);
+        await axios.post("api/guardarPromocion", promocion, {
+            headers: {
+                'Authorization': `Bearer ${rootState.user.user.token}`
+            }
+        });
         router.push('/envio_satisfactorio');
     },
     async terminarPromocion({ commit }) {

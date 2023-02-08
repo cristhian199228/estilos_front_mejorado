@@ -227,11 +227,9 @@ export default {
       var logo_estilos = new Image();
       logo_estilos.onload = function () {
         me.stage.findOne('#logo_estilos').image(logo_estilos);
-        me.stage.findOne('#logo_estilos').draggable(me.editable);
+        me.stage.findOne('#logo_estilos').draggable(false);
       };
       logo_estilos.src = '/app/logo_estilos.svg';
-
-
 
       var logo_tarjeta_estilos = new Image();
       logo_tarjeta_estilos.onload = function () {
@@ -242,9 +240,12 @@ export default {
 
       if (!me.usar_texto_establecimiento) {
         var logo_establecimiento = new Image();
+       
         logo_establecimiento.onload = function () {
           me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
           me.stage.findOne('#logo_establecimiento').draggable(me.editable)
+          me.stage.findOne('#logo_establecimiento').height(70)
+          me.stage.findOne('#logo_establecimiento').width(80)
         };
         logo_establecimiento.src = me.ruta_logo;
         me.stage.findOne('#logo_establecimiento').show()
@@ -262,8 +263,6 @@ export default {
 
       me.stage.findOne('#productos_promocion').text(me.productos_promocion_text)
       me.stage.findOne('#precio_promocion').text(me.precio_promocion_text)
-
-
 
       if (this.editable == true) {
         var tr = me.stage.findOne('#transformer');
