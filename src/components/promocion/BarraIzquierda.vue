@@ -308,7 +308,10 @@ export default {
     },
     eliminarLogo() {
       const res = confirm("Desea Eliminar el logo");
-      if (res) this.$store.state.user.user.establecimiento.ruta_logo = null
+      if (res) {
+        this.$store.commit('promocion/SET_USAR_TEXTO_ESTABLECIMIENTO' , true)
+        this.$store.state.user.user.establecimiento.ruta_logo = null;
+      } 
     }
   },
   computed: {
@@ -327,7 +330,7 @@ export default {
       set(newValue) { this.$store.commit('promocion/SET_PRECIO_PROMOCION', newValue); }
     },
     texto_establecimiento: {
-      get() { return this.$store.getters['user/getNombreComercial'] },
+      get() { return this.$store.state.promocion.texto_establecimiento.text },
       set(newValue) { this.$store.commit('promocion/SET_TEXTO_ESTABLECIMIENTO', newValue); }
     },
     usar_texto_establecimiento: {

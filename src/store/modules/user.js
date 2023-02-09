@@ -20,6 +20,7 @@ const actions = {
             commit('SHOW_SUCCESS_SNACKBAR', await res.data.message, { root: true })
             commit('SET_USER', await res.data.usuario)
             commit('SET_BACKGROUND', 'logueado', { root: true })
+            commit('promocion/SET_TEXTO_ESTABLECIMIENTO', res.data.usuario.establecimiento.nombre_comercial, { root: true })
             await router.push('/inicio');
         } catch (e) {
             commit('SHOW_ERROR_SNACKBAR', await e.response.data.message, { root: true })
@@ -61,6 +62,10 @@ const mutations = {
     SET_USER(state, user) {
         state.user = user
         window.localStorage.setItem('user', JSON.stringify(user));
+    },
+    SET_RUTA_LOGO(state, ruta) {
+        state.user.establecimiento.ruta_logo = ruta
+        window.localStorage.setItem('user', JSON.stringify(state.user));
     },
     LOGOUT_USER(state) {
         state.user = null;

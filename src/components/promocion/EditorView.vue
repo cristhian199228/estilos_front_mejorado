@@ -95,7 +95,10 @@ export default {
         let me = this
         logo_establecimiento.onload = function () {
           me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
-          me.stage.findOne('#logo_establecimiento').draggable(me.editable)
+          me.stage.findOne('#logo_establecimiento').draggable(me.editable);
+          var ratio = Math.abs(me.stage.findOne('#logo_establecimiento').attrs['width'] / logo_establecimiento.width);
+          me.stage.findOne('#logo_establecimiento').width(logo_establecimiento.width * ratio);
+          me.stage.findOne('#logo_establecimiento').height(logo_establecimiento.height * ratio);
         };
         logo_establecimiento.src = this.ruta_logo;
         me.stage.findOne('#texto_establecimiento').hide()
@@ -107,24 +110,21 @@ export default {
       }
     },
     ruta_logo(value) {
-      if (value == "https://lexa.cl/wp-content/uploads/2018/11/logo.png") {
+  /*     if (value == "https://lexa.cl/wp-content/uploads/2018/11/logo.png") { */
         var logo_establecimiento = new Image();
         let me = this
         logo_establecimiento.onload = function () {
 
           me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
           me.stage.findOne('#logo_establecimiento').draggable(me.editable)
-          var ratio = Math.abs(me.stage.findOne('#logo_establecimiento').attrs['width'] - logo_establecimiento.width);
-          me.stage.findOne('#logo_establecimiento').width(logo_establecimiento.width - ratio);
-          me.stage.findOne('#logo_establecimiento').height(logo_establecimiento.height - ratio);
-          console.log(logo_establecimiento.width,logo_establecimiento.height);
-          console.log(ratio);
-          console.log(me.stage.findOne('#logo_establecimiento').attrs['width'],me.stage.findOne('#logo_establecimiento').attrs['height']);
+          var ratio = Math.abs(me.stage.findOne('#logo_establecimiento').attrs['width'] / logo_establecimiento.width);
+          me.stage.findOne('#logo_establecimiento').width(logo_establecimiento.width * ratio);
+          me.stage.findOne('#logo_establecimiento').height(logo_establecimiento.height * ratio);
         };
         logo_establecimiento.src = value;
 
         me.stage.findOne('#logo_establecimiento').show()
-      }
+     /*  } */
     },
     json(nuevo) {
       this.dibujarCanvas(nuevo);
@@ -247,15 +247,16 @@ export default {
         logo_establecimiento.onload = function () {
           me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
           me.stage.findOne('#logo_establecimiento').draggable(me.editable)
-          me.stage.findOne('#logo_establecimiento').height(70)
-          me.stage.findOne('#logo_establecimiento').width(80)
+          var ratio = Math.abs(me.stage.findOne('#logo_establecimiento').attrs['width'] / logo_establecimiento.width);
+          me.stage.findOne('#logo_establecimiento').width(logo_establecimiento.width * ratio);
+          me.stage.findOne('#logo_establecimiento').height(logo_establecimiento.height * ratio);
         };
         logo_establecimiento.src = me.ruta_logo;
         me.stage.findOne('#logo_establecimiento').show()
       }
       else {
         me.stage.findOne('#texto_establecimiento').show()
-        me.stage.findOne('#texto_establecimiento').text(me.$store.getters['user/getNombreComercial'])
+        me.stage.findOne('#texto_establecimiento').text(me.$store.state.promocion.texto_establecimiento.text)
         me.stage.findOne('#texto_establecimiento').draggable(me.editable)
       }
 

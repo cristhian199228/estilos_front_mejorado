@@ -165,7 +165,7 @@ export default {
       }
       else {
         me.stage.findOne('#texto_establecimiento').show()
-        me.stage.findOne('#texto_establecimiento').text(me.$store.getters['user/getNombreComercial'])
+        me.stage.findOne('#texto_establecimiento').text(me.stage.findOne('#texto_establecimiento').attrs.text)
         me.stage.findOne('#texto_establecimiento').draggable(me.editable)
         me.stage.findOne('#logo_establecimiento').hide()
       }

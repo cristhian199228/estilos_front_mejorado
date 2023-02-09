@@ -76,7 +76,7 @@ const actions = {
         commit('SET_PROMOCION_SELECCIONADA', res.data.data);
     },
 
-    async subirLogo({ state, rootState }, foto) {
+    async subirLogo({ state, commit}, foto) {
         const config = {
             headers: { "content-type": "multipart/form-data" },
         };
@@ -85,7 +85,9 @@ const actions = {
         formData.append("establecimiento_id", foto['establecimiento_id']);
         const res = await axios.post("api/subirLogo", formData, config);
         state.dialog_subir_logo = false
-        rootState.user.user.establecimiento.ruta_logo = res.data.data.ruta_logo
+        state.usar_texto_establecimiento = false
+        commit('user/SET_RUTA_LOGO', res.data.data.ruta_logo, { root: true });
+        //rootState.user.user.establecimiento.ruta_logo = res.data.data.ruta_logo
     },
 
     async guardarStageCanvas({ commit, state }) {
