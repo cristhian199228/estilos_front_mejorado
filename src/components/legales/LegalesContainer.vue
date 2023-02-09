@@ -88,7 +88,7 @@ export default {
         EditorView,
     },
     data: () => ({
-        valid: false
+       /*  valid: false */
     }),
     methods: {
         guardarDatos() {
@@ -128,6 +128,10 @@ export default {
             get() { return this.$store.state.datos_persistentes.legales_valores.horario },
             set(newValue) { this.$store.commit('SET_HORARIO_LEGALES', newValue); }
         },
+        valid:{
+            get() { return this.$store.state.datos_persistentes.legal_valido},
+            set(newValue) { this.$store.commit('SET_LEGAL_VALIDO', newValue); }
+        }
     },
     watch: {
 

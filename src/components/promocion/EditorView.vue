@@ -46,12 +46,7 @@ export default {
       this.stage.findOne('#productos_promocion').fontStyle(value)
     },
     texto_establecimiento_font_style(value) {
-      var FontFaceObserver = require('fontfaceobserver');
-      var font = new FontFaceObserver(value);
-      let me = this;
-      font.load().then(function () {
-        me.stage.findOne('#texto_establecimiento').fontStyle(value)
-      });
+      this.stage.findOne('#texto_establecimiento').fontStyle(value)
     },
     productos_promocion_align(value) {
       this.stage.findOne('#productos_promocion').align(value)
@@ -116,10 +111,18 @@ export default {
         var logo_establecimiento = new Image();
         let me = this
         logo_establecimiento.onload = function () {
+
           me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
           me.stage.findOne('#logo_establecimiento').draggable(me.editable)
+          var ratio = Math.abs(me.stage.findOne('#logo_establecimiento').attrs['width'] - logo_establecimiento.width);
+          me.stage.findOne('#logo_establecimiento').width(logo_establecimiento.width - ratio);
+          me.stage.findOne('#logo_establecimiento').height(logo_establecimiento.height - ratio);
+          console.log(logo_establecimiento.width,logo_establecimiento.height);
+          console.log(ratio);
+          console.log(me.stage.findOne('#logo_establecimiento').attrs['width'],me.stage.findOne('#logo_establecimiento').attrs['height']);
         };
         logo_establecimiento.src = value;
+
         me.stage.findOne('#logo_establecimiento').show()
       }
     },
@@ -240,7 +243,7 @@ export default {
 
       if (!me.usar_texto_establecimiento) {
         var logo_establecimiento = new Image();
-       
+
         logo_establecimiento.onload = function () {
           me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
           me.stage.findOne('#logo_establecimiento').draggable(me.editable)

@@ -38,7 +38,9 @@ export default new Vuex.Store({
                 representante_legal: null,
                 confirmacion_veracidad: false,
                 acepta_terminos: false
-            }
+            },
+            legal_valido:false,
+            enviar_valido:false,
         },
     },
     getters: {
@@ -134,6 +136,14 @@ export default new Vuex.Store({
         },
         SET_ACEPTA_TERMINOS_LEGALES(state, acepta) {
             state.datos_persistentes.legales_valores.acepta_terminos = acepta
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_LEGAL_VALIDO(state, value) {
+            state.datos_persistentes.legal_valido = value
+            this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
+        },
+        SET_ENVIAR_VALIDO(state, value) {
+            state.datos_persistentes.enviar_valido = value
             this.commit('SET_DATOS_PERSISTENTES', state.datos_persistentes)
         },
         SET_DATOS_PERSISTENTES(state, datos) {

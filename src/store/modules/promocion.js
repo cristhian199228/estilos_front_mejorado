@@ -56,11 +56,13 @@ const getters = {
 }
 
 const actions = {
+
     async getPlantillas({ commit }) {
         const res = await axios.get("api/getPlantillas")
         commit('SET_PLANTILLAS', res.data.data);
     },
-    async getPromociones({ commit , rootState}, data) {
+
+    async getPromociones({ commit, rootState }, data) {
         const res = await axios.get("api/getPromociones/" + data.inicio + '/' + data.final, {
             headers: {
                 'Authorization': `Bearer ${rootState.user.user.token}`
@@ -68,10 +70,12 @@ const actions = {
         });
         commit('SET_PROMOCION', res.data.data);
     },
+
     async getPromocionSeleccionada({ commit }, id) {
         const res = await axios.get("api/getPromocion/" + id)
         commit('SET_PROMOCION_SELECCIONADA', res.data.data);
     },
+
     async subirLogo({ state, rootState }, foto) {
         const config = {
             headers: { "content-type": "multipart/form-data" },
@@ -83,11 +87,13 @@ const actions = {
         state.dialog_subir_logo = false
         rootState.user.user.establecimiento.ruta_logo = res.data.data.ruta_logo
     },
+
     async guardarStageCanvas({ commit, state }) {
         const json = await state.stage.toJSON();
         commit('SET_STAGE_JSON', json, { root: true });
         router.push('/legales');
     },
+
     async guardarPromocion({ rootState, rootGetters }) {
         const promocion = {
             foto_id: rootState.datos_persistentes.foto_seleccionada.id,
@@ -108,6 +114,7 @@ const actions = {
         });
         router.push('/envio_satisfactorio');
     },
+
     async terminarPromocion({ commit }) {
 
         const datos = {
@@ -135,6 +142,7 @@ const actions = {
         commit('SET_DATOS_PERSISTENTES', datos, { root: true })
         router.push('/inicio');
     },
+
     async exportarPromocion({ state }) {
         state.descarga += 1
     },

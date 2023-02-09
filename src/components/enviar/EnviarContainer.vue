@@ -72,7 +72,7 @@ export default {
         EditorView,
     },
     data: () => ({
-        valid: false
+        /* valid: false */
     }),
     methods: {
         guardarDatos() {
@@ -104,6 +104,10 @@ export default {
         acepta_terminos: {
             get() { return this.$store.state.datos_persistentes.legales_valores.acepta_terminos },
             set(newValue) { this.$store.commit('SET_ACEPTA_TERMINOS_LEGALES', newValue); }
+        },
+        valid:{
+            get() { return this.$store.state.datos_persistentes.enviar_valido},
+            set(newValue) { this.$store.commit('SET_ENVIAR_VALIDO', newValue); }
         }
     },
 };
