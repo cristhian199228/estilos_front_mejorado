@@ -7,8 +7,29 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <template v-if="getUser">
-        <v-icon class=" mx-2" color="orange">mdi-store</v-icon>
-        Hola , {{ getUser }}
+        <v-menu :close-on-content-click="false" offset-y max-width="400px">
+          <template v-slot:activator="{ on, attrs }">
+            <div v-on="on">Hola , {{ getUser }}</div>
+            <v-btn class="mx-3" icon dark v-bind="attrs" v-on="on">
+              <v-icon color="orange">mdi-store</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-list>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> {{ getUser }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ getNombreComercial }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn @click="logout" dark color="#f57c00">SALIR</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-menu>
       </template>
     </v-app-bar>
   </div>
@@ -30,11 +51,16 @@ export default {
     getUser() {
       if (this.$store.state.user.user) return this.$store.state.user.user.nombre
       return false
+    },
+    getNombreComercial() {
+      return this.$store.getters['user/getNombreComercial']
     }
   },
   mounted() { },
   methods: {
-
+    logout() {
+      this.$store.dispatch('user/logout')
+    }
   }
 }
 </script>

@@ -108,6 +108,7 @@ const actions = {
             restricciones: rootState.datos_persistentes.legales_valores.restricciones,
             acepta: rootState.datos_persistentes.legales_valores.acepta_terminos,
             json: rootState.datos_persistentes.stage_json,
+            ruta_logo:rootState.user.user.establecimiento.ruta_logo,
         }
         await axios.post("api/guardarPromocion", promocion, {
             headers: {
@@ -139,7 +140,9 @@ const actions = {
                 representante_legal: '',
                 confirmacion_veracidad: '',
                 acepta_terminos: ''
-            }
+            },
+            legal_valido:false,
+            enviar_valido:false,
         }
         commit('SET_DATOS_PERSISTENTES', datos, { root: true })
         router.push('/inicio');

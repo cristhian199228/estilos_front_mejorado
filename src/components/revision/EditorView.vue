@@ -104,10 +104,7 @@ export default {
     json_plantilla() {
       return this.$store.getters['promocion/getPlantillaSeleccionada']
     },
-    ruta_logo() {
-      if (this.$store.state.user.user.establecimiento.ruta_logo) return this.$store.getters['user/getRutaLogo']
-      return "https://lexa.cl/wp-content/uploads/2018/11/logo.png"
-    },
+   
   },
   methods: {
     changeRect() {
@@ -159,7 +156,7 @@ export default {
           me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
           me.stage.findOne('#logo_establecimiento').draggable(me.editable)
         };
-        logo_establecimiento.src = me.ruta_logo;
+        logo_establecimiento.src = process.env.VUE_APP_API_URL + '/api/mostrarLogo/'+json.ruta_logo;
         me.stage.findOne('#logo_establecimiento').show()
         me.stage.findOne('#texto_establecimiento').hide()
       }
@@ -185,47 +182,7 @@ export default {
         });
       }
     },
-    async dibujarCanvasPlantilla() {
-
-      let me = this;
-      me.stage = Konva.Node.create(JSON.parse(me.json_plantilla.json), this.idContainer);
-
-      var backgound = new Image();
-      backgound.onload = function () {
-        me.stage.findOne('#background').image(backgound);
-      };
-      backgound.setAttribute('crossOrigin', 'anonymous');
-      backgound.src = me.ruta_foto;
-
-      var logo_estilos = new Image();
-      logo_estilos.onload = function () {
-        me.stage.findOne('#logo_estilos').image(logo_estilos);
-        me.stage.findOne('#logo_estilos').draggable(me.editable);
-      };
-      logo_estilos.src = '/app/logo_estilos.svg';
-
-      var logo_tarjeta_estilos = new Image();
-      logo_tarjeta_estilos.onload = function () {
-        me.stage.findOne('#logo_tarjeta_estilos').image(logo_tarjeta_estilos);
-        me.stage.findOne('#logo_tarjeta_estilos').draggable(me.editable)
-      };
-      logo_tarjeta_estilos.src = '/app/logo_tarjeta_exclusivo.svg';
-
-      me.objetos_editables.forEach(attr => me.stage.findOne('#' + attr).draggable(me.editable));
-      me.objetos.forEach(attr => me.establecerAtributosDesdePlantilla(attr));
-
-      if (this.editable == true) {
-        var tr = me.stage.findOne('#transformer');
-        this.stage.on("click tap", function (e) {
-          var currentShape = e.target;
-          if (currentShape === this.stage || currentShape.attrs.name == 'background') {
-            tr.nodes([]);
-          } else {
-            tr.nodes([currentShape]);
-          }
-        });
-      }
-    },
+  
     async exportarPromocion() {
       var dataURL = this.stage.toDataURL({ pixelRatio: this.$store.state.promocion.res + 1 });
       var link = document.createElement('a');
