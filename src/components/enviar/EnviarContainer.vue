@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-row no-gutters>
+
             <v-col cols="12" offset-lg="1" offset-md="2" lg="10" md="10" sm="12" xs="12">
                 <v-card outlined color="transparent" class="mt-5" elevation="0">
                     <v-row>
@@ -61,7 +61,7 @@
                     </v-row>
                 </v-card>
             </v-col>
-        </v-row>
+
     </div>
 </template>
   

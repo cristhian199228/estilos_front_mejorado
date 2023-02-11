@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- TODO mejorar esqueleto -->
-        <v-row>
+ 
             <v-col cols="12" offset-lg="1" offset-md="2" lg="10" md="10" sm="12" xs="12">
                 <v-row>
                     <v-col cols="12" md="5">
@@ -78,7 +78,7 @@
                     </v-col>
                 </v-row>
             </v-col>
-        </v-row>
+
     </div>
 </template>
 <script>
