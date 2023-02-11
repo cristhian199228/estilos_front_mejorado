@@ -36,6 +36,7 @@ import DialogColor from "./DialogColor.vue";
 import DialogFuente from "./DialogFuente.vue";
 import DialogSubirLogo from "./DialogSubirLogo.vue";
 import BarraIzquierda from "./BarraIzquierda.vue";
+import goTo from 'vuetify/lib/services/goto'
 export default {
   components: {
     EditorView,
@@ -47,15 +48,16 @@ export default {
   data: () => ({
   }),
   methods: {
-    guardaryContinuar(){
+    guardaryContinuar() {
       this.$store.dispatch('promocion/guardarStageCanvas')
-      this.$store.commit('SET_LEGALES_VALIDADO',true)
+      this.$store.commit('SET_LEGALES_VALIDADO', true)
     }
   },
   created() {
-     this.$store.dispatch("promocion/getPlantillas");
+    this.$store.dispatch("promocion/getPlantillas");
   },
   mounted() {
+    goTo(0)
   },
 };
 </script>

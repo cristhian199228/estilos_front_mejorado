@@ -67,6 +67,7 @@
   
 <script>
 import EditorView from "../promocion/EditorView.vue";
+import goTo from 'vuetify/lib/services/goto'
 export default {
     components: {
         EditorView,
@@ -85,6 +86,9 @@ export default {
     },
     created() {
         this.$store.dispatch("promocion/getPlantillas");
+    },
+    mounted() {
+        goTo(0)
     },
     computed: {
         razon_social() {
@@ -105,8 +109,8 @@ export default {
             get() { return this.$store.state.datos_persistentes.legales_valores.acepta_terminos },
             set(newValue) { this.$store.commit('SET_ACEPTA_TERMINOS_LEGALES', newValue); }
         },
-        valid:{
-            get() { return this.$store.state.datos_persistentes.enviar_valido},
+        valid: {
+            get() { return this.$store.state.datos_persistentes.enviar_valido },
             set(newValue) { this.$store.commit('SET_ENVIAR_VALIDO', newValue); }
         }
     },

@@ -18,6 +18,7 @@
 import dialogSubirFoto from "./dialogSubirFoto.vue";
 import barraIzquierda from "./barraIzquierda.vue";
 import barraDerecha from "./barraDerecha.vue";
+import goTo from 'vuetify/lib/services/goto'
 export default {
   components: {
     dialogSubirFoto,
@@ -26,6 +27,7 @@ export default {
   },
   created() {
     this.$store.dispatch('foto/getFotos');
+    goTo(0)
   },
 };
 </script>

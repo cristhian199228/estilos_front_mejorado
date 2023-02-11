@@ -32,7 +32,6 @@ export default {
     stage(value) {
       this.$store.state.promocion.stage = value
     },
-
     productos_promocion_text(value) {
       this.stage.findOne('#productos_promocion').text(value)
     },

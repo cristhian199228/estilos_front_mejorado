@@ -83,6 +83,7 @@
 </template>
 <script>
 import EditorView from "../promocion/EditorView.vue";
+import goTo from 'vuetify/lib/services/goto'
 export default {
     components: {
         EditorView,
@@ -106,6 +107,9 @@ export default {
     },
     created() {
         this.$store.dispatch("promocion/getPlantillas");
+    },
+    mounted() {
+        goTo(0)
     },
     computed: {
         celular: {

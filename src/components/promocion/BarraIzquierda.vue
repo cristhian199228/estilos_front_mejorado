@@ -3,10 +3,10 @@
     <v-card outlined color="#E5E5E5">
       <v-card-text>
         <v-row>
-          <v-col cols="12">
-            <v-card outlined color="transparent">
+          <v-col cols="12" >
+            <v-card autofocus outlined color="transparent">
               <v-card-title>
-                <h5> 1. Elige la Plantilla</h5>
+                <h5 > 1. Elige la Plantilla</h5>
               </v-card-title>
               <v-card-text>
                 <!-- TODO arreglar flechas -->
@@ -344,6 +344,7 @@ export default {
 
   },
   created() {
+  
   },
   mounted() {
   },
