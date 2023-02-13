@@ -51,7 +51,9 @@ const actions = {
                 representante_legal: '',
                 confirmacion_veracidad: '',
                 acepta_terminos: ''
-            }
+            },
+            legal_valido:false,
+            enviar_valido:false,
         }
         commit('SET_DATOS_PERSISTENTES', datos, { root: true })
         router.push('/login');

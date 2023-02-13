@@ -1,30 +1,24 @@
 <template>
     <div>
-        <v-card class="mx-auto mt-12" outlined color="transparent" max-width="800">
-            <v-row dense>
-                <v-col cols="12">
-                    <v-card outlined color="transparent">
-                        <v-img src="/app/emoticon_smile.svg" contain max-height="15vh" class="orange--text align-end">
+        <v-row>
+            <v-col cols="12">
+                <v-card color="transparent" outlined>
+                    <v-card-body>
+                        <v-img src="/app/emoticon_smile.svg" contain max-height="15vh" class="my-4">
                         </v-img>
-                    </v-card>
-                </v-col>
-                <v-col cols="12">
-                    <v-card class="mx-6" color="transparent" outlined>
-                        <v-img src="/app/envio_satisfactorio.svg" max-height="30vh" contain
-                            class="orange--text align-end">
+                        <v-img src="/app/envio_satisfactorio.svg" contain max-height="30vh"  class="my-4">
                         </v-img>
-                        <v-card-actions>
-                            <div class="mx-auto">
-                                <v-btn link class="mb-8 rounded-lg" tile dark color="#70142D"
-                                    @click="terminarPromocion()">
-                                    Finalizar
-                                </v-btn>
-                            </div>
-                        </v-card-actions>
-                    </v-card>
-                </v-col>
-            </v-row>
-        </v-card>
+                    </v-card-body>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn link class="ml-5 rounded" dark color="#70142D" @click="terminarPromocion()">
+                            Finalizar
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
     </div>
 </template>
 <script>
