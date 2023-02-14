@@ -6,7 +6,7 @@
                     <v-card-body>
                         <v-img src="/app/emoticon_smile.svg" contain max-height="15vh" class="my-4">
                         </v-img>
-                        <v-img src="/app/envio_satisfactorio.svg" contain max-height="30vh"  class="my-4">
+                        <v-img src="/app/envio_satisfactorio.svg" contain max-height="30vh"  class="ma-8">
                         </v-img>
                     </v-card-body>
                     <v-card-actions>
