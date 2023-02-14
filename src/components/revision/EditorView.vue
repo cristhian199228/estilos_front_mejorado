@@ -104,7 +104,7 @@ export default {
     json_plantilla() {
       return this.$store.getters['promocion/getPlantillaSeleccionada']
     },
-   
+
   },
   methods: {
     changeRect() {
@@ -152,11 +152,14 @@ export default {
 
       if (json.usar_texto_establecimiento == 0) {
         var logo_establecimiento = new Image();
+
+        logo_establecimiento.src = me.ruta_logo;
         logo_establecimiento.onload = function () {
+          logo_establecimiento.setAttribute('crossOrigin', 'anonymous');
           me.stage.findOne('#logo_establecimiento').image(logo_establecimiento);
           me.stage.findOne('#logo_establecimiento').draggable(me.editable)
         };
-        logo_establecimiento.src = process.env.VUE_APP_API_URL + '/api/mostrarLogo/'+json.ruta_logo;
+        logo_establecimiento.src = process.env.VUE_APP_API_URL + '/api/mostrarLogo/' + json.ruta_logo;
         me.stage.findOne('#logo_establecimiento').show()
         me.stage.findOne('#texto_establecimiento').hide()
       }
@@ -182,7 +185,7 @@ export default {
         });
       }
     },
-  
+
     async exportarPromocion() {
       var dataURL = this.stage.toDataURL({ pixelRatio: this.$store.state.promocion.res + 1 });
       var link = document.createElement('a');
